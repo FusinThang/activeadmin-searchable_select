@@ -33,7 +33,8 @@ module ActiveAdmin
       # @api private
       def collection_from_options
         return super unless options[:ajax]
-
+        
+        @options ||= options
         if SearchableSelect.inline_ajax_options
           all_options_collection
         else
@@ -74,7 +75,8 @@ module ActiveAdmin
       end
 
       def selected_values
-        @object.send(input_name) if @object
+        @options[:selected] || nil
+        # @object.send(input_name) if @object
       end
 
       def option_collection_scope
